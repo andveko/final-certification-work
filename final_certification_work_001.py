@@ -87,10 +87,13 @@ def show_exchange_rate():
                 # Показываем пользователю сообщение с курсом обмена.
                 mb.showinfo("Курс обмена", f"Курс {exchange_rate} {name_currency} за 1 {name_crypto}")
             else:
+                # Если пользователь не ввел неправильную валюту обмена, показываем ему предупреждение.
                 mb.showerror("Ошибка", f"Валюта {currency} не найдена")
         except Exception as e:
+            # В случае возникновения ошибки, показываем её пользователю.
             mb.showerror("Произошла ошибка!", f"Произошла ошибка: {e}")
     else:
+        # Сообщение торопливому пользователю.
         mb.showwarning("Внимание", "Выберите коды валют")
 
 
@@ -98,7 +101,33 @@ def show_exchange_rate():
 # Функция, которая создает дополнительное окно
 # 'Text', с описанием выбранной криптовалюты.
 def show_description():
-    pass
+    # Вызываем функцию отправляющую запрос на сервер.
+    request_data = loading_data()
+    # Проверяем, чтобы полученный
+    # запрос не был пустым.
+    if request_data['description']['en']:
+        # Для обработки возможных ошибок.
+        try:
+            # Присваиваем переменной текст описания из запроса.
+            text_description = request_data['description']['en']
+            # Создаем вторичное окно.
+            description_window = Toplevel(window)
+            # Заголовок вторичного окна
+            description_window.title("Описание криптовалюты")
+            description_text = Text(description_window, bg='white', fg='black')
+            description_text.insert(END, text_description)
+            description_text.pack()
+            # С помощью виджета ttk создаем кнопку закрытия вторичного окна.
+            close_button = ttk.Button(description_window, text='Закрыть', command=description_window.destroy)
+            # Упаковываем кнопку закрытия вторичного окна, и размещаем её внизу окна.
+            close_button.pack(side=BOTTOM, padx=10, pady=(10, 10))
+        except Exception as e:
+            # В случае возникновения ошибки, показываем её пользователю.
+            mb.showerror("Произошла ошибка!", f"Произошла ошибка: {e}")
+    else:
+        # Сообщение пользователю.
+        mb.showwarning("Внимание!", "Описание криптовалюты отсутствует.")
+
 
 
 # Словарь для выбора криптовалюты.
@@ -216,8 +245,26 @@ choice_currency.pack(side=LEFT, padx=(10, 0), pady=10)
 currency_label = ttk.Label(frame_6)
 # Упаковываем метку.
 currency_label.pack(side=LEFT, padx=(0, 10), pady=10)
-exchange_button = ttk.Button(frame_7, text='Показать курс обмена', command=show_exchange_rate)
+# Выводим кнопку 'Показать курс обмена'.
+# Кнопку размещаем в 7 фрейме. Ширина кнопки равна 30 символов,
+# чтобы верхняя и нижняя кнопки были одинаковой ширины.
+exchange_button = ttk.Button(frame_7,width=30, text='Показать курс обмена', command=show_exchange_rate)
+# Упаковываем кнопку.
 exchange_button.pack(padx=10, pady=10)
+# Информационная метка с надписью.
+label_5 = ttk.Label(frame_7, text='Описание доступно только')
+# Упаковываем метку
+label_5.pack(padx=10, pady=(10, 0))
+# Информационная метка с надписью.
+label_5 = ttk.Label(frame_7, text=' на английском языке!')
+# Упаковываем метку
+label_5.pack(padx=10)
+# Выводим кнопку 'Показать описание криптовалюты'.
+# Кнопку размещаем в 7 фрейме.
+description_button = ttk.Button(frame_7, text='Показать описание криптовалюты', command=show_description)
+# Упаковываем кнопку.
+description_button.pack(padx=10, pady=10)
+
 # Кнопка "Выход"
 exit_button = ttk.Button(text='Выход', command=window.destroy)
 # Упаковываем кнопку "Выход".
