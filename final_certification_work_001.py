@@ -113,19 +113,58 @@ def show_description():
             description_window = Toplevel(window)
             # Заголовок вторичного окна
             description_window.title("Описание криптовалюты")
+            # Размешаем окно в виджете многострочного текста.
             description_text = Text(description_window, bg='white', fg='black')
+            # Вставляем текст полученный из запроса в виджет.
             description_text.insert(END, text_description)
-            description_text.pack()
+            # Упаковываем виджет.
+            description_text.pack(padx=10, pady=10)
             # С помощью виджета ttk создаем кнопку закрытия вторичного окна.
             close_button = ttk.Button(description_window, text='Закрыть', command=description_window.destroy)
             # Упаковываем кнопку закрытия вторичного окна, и размещаем её внизу окна.
-            close_button.pack(side=BOTTOM, padx=10, pady=(10, 10))
+            close_button.pack(side=BOTTOM, padx=10, pady=10)
         except Exception as e:
             # В случае возникновения ошибки, показываем её пользователю.
             mb.showerror("Произошла ошибка!", f"Произошла ошибка: {e}")
     else:
         # Сообщение пользователю.
         mb.showwarning("Внимание!", "Описание криптовалюты отсутствует.")
+
+
+# Функция показа отдельного окна "О программе".
+def show_about_program():
+    # Создаем дочернее окно.
+    about_window = Toplevel(window)
+    # Заголовок дочернего окна.
+    about_window.title('О программе')
+    # Информационные метки с текстом.
+    about_label_1 = ttk.Label(about_window, text='Центр повышения квалификации и')
+    about_label_2 = ttk.Label(about_window, text='профессиональной подготовки')
+    about_label_3 = ttk.Label(about_window, text='«Основание»')
+    about_label_4 = ttk.Label(about_window, text='ВЫПУСКНАЯ АТТЕСТАЦИОННАЯ')
+    about_label_5 = ttk.Label(about_window, text='(ПРОЕКТНАЯ) РАБОТА')
+    about_label_6 = ttk.Label(about_window, text='Разработка приложения для отображения')
+    about_label_7 = ttk.Label(about_window, text='курсов криптовалют.')
+    about_label_8 = ttk.Label(about_window, text='по программе повышения квалификации')
+    about_label_9 = ttk.Label(about_window, text='«Азбука цифры. Профессия Python-программист»')
+    about_label_10 = ttk.Label(about_window, text='Выполнил: 12.08.2024 Козлов А.В.')
+    about_label_11 = ttk.Label(about_window, text='Москва 2024')
+    # Упаковываем полученные метки.
+    about_label_1.pack(padx=10, pady=(10, 0))
+    about_label_2.pack(padx=10)
+    about_label_3.pack(padx=10, pady=(0, 10))
+    about_label_4.pack(padx=10, pady=(10, 0))
+    about_label_5.pack(padx=10, pady=(0, 10))
+    about_label_6.pack(padx=10, pady=(10, 0))
+    about_label_7.pack(padx=10, pady=(0, 10))
+    about_label_8.pack(padx=10, pady=(10, 0))
+    about_label_9.pack(padx=10, pady=(0, 10))
+    about_label_10.pack(padx=10, pady=10)
+    about_label_11.pack(padx=10, pady=10)
+    # С помощью виджета ttk создаем кнопку закрытия вторичного окна.
+    close_button = ttk.Button(about_window, text='Закрыть', command=about_window.destroy)
+    # Упаковываем кнопку закрытия вторичного окна, и размещаем её внизу окна.
+    close_button.pack(side=BOTTOM, padx=10, pady=10)
 
 
 # Словарь для выбора криптовалюты.
@@ -196,6 +235,11 @@ frame_6.pack(padx=10)
 frame_7 = ttk.Frame()
 # Упаковываем фрейм.
 frame_7.pack(padx=10)
+# В этом фрейме размещаем
+# две кнопки "О программе" и "Выход".
+frame_8 = ttk.Frame()
+# Упаковываем фрейм.
+frame_8.pack(padx=10)
 # Создаем информационные метки.
 label_1 = ttk.Label(frame_1, text='Для показа обменного курса и описания,')
 label_2 = ttk.Label(frame_1, text='выберете криптовалюту из списка.')
@@ -264,11 +308,14 @@ label_5.pack(padx=10)
 description_button = ttk.Button(frame_7, text='Показать описание криптовалюты', command=show_description)
 # Упаковываем кнопку.
 description_button.pack(padx=10, pady=10)
-# Кнопка "Выход"
-exit_button = ttk.Button(text='Выход', command=window.destroy)
+about_program_bottom = ttk.Button(frame_8, text='О программе', command=show_about_program)
+# Упаковываем кнопку.
+about_program_bottom.pack(side=LEFT, padx=10, pady=10)
+# Кнопка "Выход". Размещаем в восьмом фрейме.
+exit_button = ttk.Button(frame_8, text='Выход', command=window.destroy)
 # Упаковываем кнопку "Выход".
 # Кнопку устанавливаем внизу окна программы.
 # С отступами по горизонтали и вертикали.
-exit_button.pack(side=BOTTOM, padx=10, pady=10)
+exit_button.pack(side=RIGHT, padx=10, pady=10)
 # Запускаем главный цикл программы.
 window.mainloop()
