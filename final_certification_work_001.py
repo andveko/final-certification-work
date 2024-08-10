@@ -97,7 +97,6 @@ def show_exchange_rate():
         mb.showwarning("Внимание", "Выберите коды валют")
 
 
-
 # Функция, которая создает дополнительное окно
 # 'Text', с описанием выбранной криптовалюты.
 def show_description():
@@ -127,7 +126,6 @@ def show_description():
     else:
         # Сообщение пользователю.
         mb.showwarning("Внимание!", "Описание криптовалюты отсутствует.")
-
 
 
 # Словарь для выбора криптовалюты.
@@ -193,6 +191,8 @@ frame_5.pack(padx=10)
 frame_6 = ttk.Frame()
 # Упаковываем фрейм.
 frame_6.pack(padx=10)
+# Фрейм номер 7. Размещаем в нем две кнопки,
+# а так же информационные метки.
 frame_7 = ttk.Frame()
 # Упаковываем фрейм.
 frame_7.pack(padx=10)
@@ -248,7 +248,7 @@ currency_label.pack(side=LEFT, padx=(0, 10), pady=10)
 # Выводим кнопку 'Показать курс обмена'.
 # Кнопку размещаем в 7 фрейме. Ширина кнопки равна 30 символов,
 # чтобы верхняя и нижняя кнопки были одинаковой ширины.
-exchange_button = ttk.Button(frame_7,width=30, text='Показать курс обмена', command=show_exchange_rate)
+exchange_button = ttk.Button(frame_7, width=30, text='Показать курс обмена', command=show_exchange_rate)
 # Упаковываем кнопку.
 exchange_button.pack(padx=10, pady=10)
 # Информационная метка с надписью.
@@ -264,7 +264,6 @@ label_5.pack(padx=10)
 description_button = ttk.Button(frame_7, text='Показать описание криптовалюты', command=show_description)
 # Упаковываем кнопку.
 description_button.pack(padx=10, pady=10)
-
 # Кнопка "Выход"
 exit_button = ttk.Button(text='Выход', command=window.destroy)
 # Упаковываем кнопку "Выход".
