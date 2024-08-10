@@ -40,8 +40,8 @@ def loading_data():
         mb.showwarning("Внимание", "Выберите коды валют")
 
 
-# Функция для обновления метки
-# выбора криптовалюты пользователем.
+# Функция для обновления выбора криптовалюты
+# пользователем. И обновления метки.
 def update_cryptocurrency_label(event):
     # Получаем полное название целевой валюты из словаря и обновляем метку
     code = cryptocurrency_combobox.get()
@@ -52,6 +52,7 @@ def update_cryptocurrency_label(event):
     cryptocurrency_label.config(text=name)
 
 
+# Функция обновление выбора валюты. И обновления метки.
 def update_currency_label(event):
     # Получаем полное название целевой валюты из словаря и обновляем метку
     code = currency_combobox.get()
