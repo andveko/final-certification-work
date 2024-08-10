@@ -30,7 +30,7 @@ def loading_data():
             response = requests.get(f'https://api.coingecko.com/api/v3/coins/{currency_code}')
             # Проверяем ответ сервера.
             response.raise_for_status()
-            # Сохраняем ответ сервера в переменной.
+            # Возвращаем ответ сервера.
             return response.json()
         # Если возникают ошибки, то выводим предупреждение.
         except Exception as e:
@@ -39,6 +39,11 @@ def loading_data():
         # Сообщение пользователю, если id криптовалюты не выбрано.
         mb.showwarning("Внимание", "Выберите коды валют")
 
+
+# Функция, которая создает дополнительное окно
+# 'Text', с описанием выбранной криптовалюты.
+def show_description():
+    pass
 
 
 # Список для выбора криптовалюты.
@@ -59,3 +64,26 @@ currencies = {
     "kzt": "Казахстанский тенге",
     "uzs": "Узбекский сум"
 }
+
+
+# Создаем графический интерфейс программы.
+# Создаем окно программы.
+window = Tk()
+# Название программы.
+window.title('Крипта - обменный курс криптовалюты.')
+# Создаем информационные метки.
+label_1 = Label(text='Для показа описания и обменного курса,')
+label_2 = Label(text='выберете криптовалюту из списка.')
+label_3 = Label(text='Криптовалюта:')
+# Упаковываем информационные метки.
+label_1.pack(padx=10, pady=(10, 0))
+label_2.pack(padx=10, pady=(0, 10))
+label_3.pack(padx=10, pady=10)
+# Виджет комбобокс со списком криптовалюты.
+cryptocurrency_combobox = ttk.Combobox(values=cryptocurrency)
+# По умолчанию установлен Биткоин.
+cryptocurrency_combobox.set(cryptocurrency[0])
+# Упаковываем Комбобокс с криптовалютой.
+cryptocurrency_combobox.pack(padx=10, pady=10)
+# Запускаем главный цикл программы.
+window.mainloop()
