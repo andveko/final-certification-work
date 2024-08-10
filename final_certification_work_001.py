@@ -40,14 +40,30 @@ def loading_data():
         mb.showwarning("Внимание", "Выберите коды валют")
 
 
+# Функция для обновления метки
+# выбора криптовалюты пользователем.
+def update_cryptocurrency_label(event):
+    # Получаем полное название целевой валюты из словаря и обновляем метку
+    code = cryptocurrency_combobox.get()
+    name = cryptocurrency[code]
+    cryptocurrency_label.config(text=name)
+
+
 # Функция, которая создает дополнительное окно
 # 'Text', с описанием выбранной криптовалюты.
 def show_description():
     pass
 
 
-# Список для выбора криптовалюты.
-cryptocurrency = ['bitcoin', 'ethereum', 'ripple', 'litecoin', 'cardano', 'bitcoin-2']
+# Словарь для выбора криптовалюты.
+cryptocurrency = {
+    'bitcoin': 'Биткоин',
+    'ethereum': 'Эфириум',
+    'ripple': 'XRP',
+    'litecoin': 'Лайткоин',
+    'cardano': 'Кардано',
+    'bitcoin-2': 'Bitcoin 2'
+}
 
 
 # Словарь кодов валют и их полных названий
@@ -71,19 +87,35 @@ currencies = {
 window = Tk()
 # Название программы.
 window.title('Крипта - обменный курс криптовалюты.')
+# Создаем фреймы, чтобы упорядочить расположение меток и кнопок, в окне программы.
+# Первый фрейм содержит две информационные метки.
+frame_1 = Frame()
+frame_1.pack(padx=10)
+# Во втором фрейме располагается
+# информационная метка и виджет комбобокса.
+frame_2 = Frame()
+frame_2.pack(padx=10)
+frame_3 = Frame()
+frame_3.pack(padx=10)
 # Создаем информационные метки.
-label_1 = Label(text='Для показа описания и обменного курса,')
-label_2 = Label(text='выберете криптовалюту из списка.')
-label_3 = Label(text='Криптовалюта:')
+label_1 = Label(frame_1, text='Для показа описания и обменного курса,')
+label_2 = Label(frame_1, text='выберете криптовалюту из списка.')
+label_3 = Label(frame_2, text='Криптовалюта: ')
 # Упаковываем информационные метки.
 label_1.pack(padx=10, pady=(10, 0))
 label_2.pack(padx=10, pady=(0, 10))
-label_3.pack(padx=10, pady=10)
+label_3.pack(side=LEFT, padx=(10, 0), pady=10)
 # Виджет комбобокс со списком криптовалюты.
-cryptocurrency_combobox = ttk.Combobox(values=cryptocurrency)
+cryptocurrency_combobox = ttk.Combobox(frame_2, values=list(cryptocurrency.keys()))
 # По умолчанию установлен Биткоин.
-cryptocurrency_combobox.set(cryptocurrency[0])
+cryptocurrency_combobox.set('bitcoin')
 # Упаковываем Комбобокс с криптовалютой.
-cryptocurrency_combobox.pack(padx=10, pady=10)
+cryptocurrency_combobox.pack(side=LEFT, padx=(0, 10), pady=10)
+cryptocurrency_combobox.bind("<<ComboboxSelected>>", update_cryptocurrency_label)
+# Метка с надписью "Ваш выбор".
+your_choice = Label(frame_3, text='Ваш выбор: ')
+your_choice.pack(side=LEFT, padx=(10, 0), pady=10)
+cryptocurrency_label = Label(frame_3, text='Биткоин')
+cryptocurrency_label.pack(side=LEFT, padx=(0, 10), pady=10)
 # Запускаем главный цикл программы.
 window.mainloop()
