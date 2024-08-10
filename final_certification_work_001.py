@@ -62,6 +62,39 @@ def update_currency_label(event):
     currency_label.config(text=name)
 
 
+# Функция для показа курса обмена криптовалюты.
+def show_exchange_rate():
+    # Получаем криптовалюту, выбранную пользователем.
+    crypto = cryptocurrency_combobox.get()
+    # Получаем валюту, для показа курса обмена.
+    currency = currency_combobox.get()
+    # Вызываем функцию отправляющую запрос на сервер.
+    request_data = loading_data()
+    # Проверяем, чтобы полученный
+    # запрос не был пустым.
+    if request_data:
+        # Для обработки возможных ошибок.
+        try:
+            # Существует ли в полученных нами
+            # данных, выбранная пользователем валюта.
+            if currency in request_data['market_data']['current_price']:
+                # Переменной присваиваем курс обмена из запроса.
+                exchange_rate = request_data['market_data']['current_price'][currency]
+                # Получаем из словаря название валюты обмена.
+                name_currency = currencies[currency]
+                # Получаем название криптовалюты.
+                name_crypto = cryptocurrency[crypto]
+                # Показываем пользователю сообщение с курсом обмена.
+                mb.showinfo("Курс обмена", f"Курс {exchange_rate} {name_currency} за 1 {name_crypto}")
+            else:
+                mb.showerror("Ошибка", f"Валюта {currency} не найдена")
+        except Exception as e:
+            mb.showerror("Произошла ошибка!", f"Произошла ошибка: {e}")
+    else:
+        mb.showwarning("Внимание", "Выберите коды валют")
+
+
+
 # Функция, которая создает дополнительное окно
 # 'Text', с описанием выбранной криптовалюты.
 def show_description():
@@ -126,10 +159,14 @@ frame_4.pack(padx=10)
 frame_5 = ttk.Frame()
 # Упаковываем фрейм.
 frame_5.pack(padx=10)
-
+# Размещаем во фрейме две информационные метки.
+# "Ваш выбор" и метка с названием выбранной валюты
 frame_6 = ttk.Frame()
 # Упаковываем фрейм.
 frame_6.pack(padx=10)
+frame_7 = ttk.Frame()
+# Упаковываем фрейм.
+frame_7.pack(padx=10)
 # Создаем информационные метки.
 label_1 = ttk.Label(frame_1, text='Для показа обменного курса и описания,')
 label_2 = ttk.Label(frame_1, text='выберете криптовалюту из списка.')
@@ -144,26 +181,43 @@ cryptocurrency_combobox = ttk.Combobox(frame_2, values=list(cryptocurrency.keys(
 cryptocurrency_combobox.set('bitcoin')
 # Упаковываем Комбобокс с криптовалютой.
 cryptocurrency_combobox.pack(side=LEFT, padx=(0, 10), pady=10)
+# Функция для обработки выбора элементов комбобокс.
 cryptocurrency_combobox.bind("<<ComboboxSelected>>", update_cryptocurrency_label)
 # Метка с надписью "Ваш выбор".
+# Размещаем в третьем фрейме.
 your_choice = ttk.Label(frame_3, text='Ваш выбор: ')
+# Упаковываем метку.
 your_choice.pack(side=LEFT, padx=(10, 0), pady=10)
+# Метка для показа названия криптовалюты.
+# Размещаем в третьем фрейме.
 cryptocurrency_label = ttk.Label(frame_3, text='Биткоин')
+# Упаковываем метку.
 cryptocurrency_label.pack(side=LEFT, padx=(0, 10), pady=10)
 # Информационная метка с надписью.
 label_4 = ttk.Label(frame_4, text='Выберите валюту для показа курса обмена.')
+# Упаковываем метку.
 label_4.pack(padx=10, pady=10)
-
+# Информационная метка с надписью.
 label_4 = ttk.Label(frame_5, text='Валюта: ')
+# Упаковываем метку
 label_4.pack(side=LEFT, padx=(10, 0), pady=10)
+# Комбобокс для выбора валюты
+# обмена. Размещен в пятом фрейме.
 currency_combobox = ttk.Combobox(frame_5, values=list(currencies.keys()))
+# Упаковываем Комбобокс с валютой.
 currency_combobox.pack(side=LEFT, padx=(0, 10), pady=10)
+# Функция для обработки выбора элементов комбобокс.
 currency_combobox.bind("<<ComboboxSelected>>", update_currency_label)
 # Метка с надписью "Ваш выбор".
 choice_currency = ttk.Label(frame_6, text='Ваш выбор: ')
+# Упаковываем метку.
 choice_currency.pack(side=LEFT, padx=(10, 0), pady=10)
-currency_label = ttk.Label(frame_6, text='')
+# Информационная метка показывающая название валюты.
+currency_label = ttk.Label(frame_6)
+# Упаковываем метку.
 currency_label.pack(side=LEFT, padx=(0, 10), pady=10)
+exchange_button = ttk.Button(frame_7, text='Показать курс обмена', command=show_exchange_rate)
+exchange_button.pack(padx=10, pady=10)
 # Кнопка "Выход"
 exit_button = ttk.Button(text='Выход', command=window.destroy)
 # Упаковываем кнопку "Выход".
