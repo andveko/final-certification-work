@@ -55,25 +55,25 @@ currencies = {
 
 # Создание графического интерфейса
 window = Tk()
-window.title("Курс обмена валюты")
+window.title("Курс обмена криптовалюты")
 window.geometry("360x300")
 
-Label(text="Базовая валюта:").pack(padx=10, pady=5)
+Label(text="Криптовалюта:").pack(padx=10, pady=5)
 base_combobox = ttk.Combobox(values=list(currencies.keys()))
 base_combobox.pack(padx=10, pady=5)
 base_combobox.bind("<<ComboboxSelected>>", update_b_label)
 
-b_label = ttk.Label()
+b_label = Label()
 b_label.pack(padx=10, pady=10)
 
-Label(text="Целевая валюта:").pack(padx=10, pady=5)
+Label(text="Валюта обмена:").pack(padx=10, pady=5)
 target_combobox = ttk.Combobox(values=list(currencies.keys()))
 target_combobox.pack(padx=10, pady=5)
 target_combobox.bind("<<ComboboxSelected>>", update_t_label)
 
-t_label = ttk.Label()
+t_label = Label()
 t_label.pack(padx=10, pady=10)
 
-ttk.Button(text="Получить курс обмена", command=exchange).pack(padx=10, pady=10)
+Button(text="Получить курс обмена", command=exchange).pack(padx=10, pady=10)
 
 window.mainloop()

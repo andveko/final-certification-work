@@ -114,7 +114,7 @@ def show_description():
             description_window = Toplevel(window)
             # Заголовок вторичного окна
             description_window.title("Описание криптовалюты")
-            # Размешаем окно в виджете многострочного текста.
+            # Размещаем окно в виджете многострочного текста.
             description_text = Text(description_window, bg='white', fg='black')
             # Вставляем текст полученный из запроса в виджет.
             description_text.insert(END, text_description)
@@ -212,7 +212,9 @@ currencies = {
 # Создаем окно программы.
 window = Tk()
 # Название программы.
-window.title('Крипта - обменный курс криптовалюты.')
+window.title('Крипта - курс обмена криптовалюты.')
+# Задаем размер окна программы.
+window.geometry('400x460')
 # Создаем фреймы, чтобы упорядочить расположение меток и кнопок, в окне программы.
 # Первый фрейм содержит две информационные метки.
 frame_1 = ttk.Frame()
@@ -285,7 +287,7 @@ label_4 = ttk.Label(frame_4, text='Выберите валюту для пока
 # Упаковываем метку.
 label_4.pack(padx=10, pady=10)
 # Информационная метка с надписью.
-label_4 = ttk.Label(frame_5, text='Валюта: ')
+label_4 = ttk.Label(frame_5, text='Валюта обмена: ')
 # Упаковываем метку
 label_4.pack(side=LEFT, padx=(10, 0), pady=10)
 # Комбобокс для выбора валюты
