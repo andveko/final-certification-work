@@ -30,7 +30,7 @@ def exchange():
             for i in data:
                 if i['id'] != base_code:
                     continue
-                elif i['id'] == base_code:
+                else:
                     exchange_rate = i['current_price']
                     base = cryptocurrency[base_code]
                     target = currencies[target_code]
@@ -52,7 +52,6 @@ cryptocurrency = {
     'cardano': 'Кардано',
     'dogecoin': 'Dogecoin',
     'tether': 'Tether',
-    'binance-coin-wormhole': 'Binance Coin (Wormhole)',
     'solana': 'Solana',
     'the-open-network': 'Toncoin',
     'chainlink': 'Chainlink',
