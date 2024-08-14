@@ -29,7 +29,6 @@ def exchange():
             data = response.json()
             for i in data:
                 if i['id'] != base_code:
-                    # flag_code = False
                     continue
                 elif i['id'] == base_code:
                     exchange_rate = i['current_price']
